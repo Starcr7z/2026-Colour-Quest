@@ -16,7 +16,7 @@ class StartGame:
         self.start_frame = Frame(padx=10, pady=10)
         self.start_frame.grid()
 
-        # Strings for labels
+        # Strings for labels 
         intro_string = ("In each round you will be invited to choose a colour.  Your goal is "
                         "to beat the target score and win the round (and keep your points).")
 
