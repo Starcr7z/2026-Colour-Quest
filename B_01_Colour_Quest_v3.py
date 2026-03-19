@@ -7,9 +7,9 @@ from functools import partial  # To prevent unwanted windows
 # helper functions go here
 def get_colours():
     """
-    Retrieves colours from csv file
-    :return: list of colours which where each list item has the
-    colour name, associated score and foreground colour for the text
+    Retrieves colors from csv file
+    :return: list of colors which where each list item has the
+    color name, associated score and foreground color for the text
     """
 
     file = open("00_colour_list_hex_v3.csv", "r")
@@ -24,8 +24,8 @@ def get_colours():
 
 def get_round_colours():
     """
-    Choose four colours from larger list ensuring that the scores are all different.
-    :return: list of colours and score to beat (median of scores) and high score (for stats)
+    Choose four colors from larger list ensuring that the scores are all different.
+    :return: list of colors and score to beat (median of scores) and high score (for stats)
     """
 
     all_colour_list = get_colours()
@@ -33,11 +33,11 @@ def get_round_colours():
     round_colours = []
     colour_scores = []
 
-    # loop until we have four colours with different scores...
+    # loop until we have four colors with different scores...
     while len(round_colours) < 4:
         potential_colour = random.choice(all_colour_list)
 
-        # colour scores are being read as a string,
+        # color scores are being read as a string,
         # change them to an integer to compare / when adding to score list.
         if potential_colour[1] not in colour_scores:
             round_colours.append(potential_colour)
@@ -93,7 +93,7 @@ class StartGame:
 
         # List of labels to be made (text | font | fg)
         start_labels_list = [
-            ["Colour Quest", ("Arial", "16", "bold"), None],
+            ["Colour Quest", ("Arial", 16, "bold"), None],
             [intro_string, ("Arial", "12"), None],
             [choose_string, ("Arial", "12", "bold"), "#009900"]
         ]
@@ -117,12 +117,12 @@ class StartGame:
         self.entry_area_frame = Frame(self.start_frame)
         self.entry_area_frame.grid(row=3)
 
-        self.num_rounds_entry = Entry(self.entry_area_frame, font=("Arial", "20", "bold"),
+        self.num_rounds_entry = Entry(self.entry_area_frame, font=("Arial", 20, "bold"),
                                       width=10)
         self.num_rounds_entry.grid(row=0, column=0, padx=10, pady=10)
 
         # Create play button...
-        self.play_button = Button(self.entry_area_frame, font=("Arial", "16", "bold"),
+        self.play_button = Button(self.entry_area_frame, font=("Arial", 16, "bold"),
                                   fg="#FFFFFF", bg="#0057D8", text="Play", width=10,
                                   command=self.check_rounds)
         self.play_button.grid(row=0, column=1)
@@ -136,7 +136,7 @@ class StartGame:
         rounds_wanted = self.num_rounds_entry.get()
 
         # Reset label and entry box (for when users come back to home screen)
-        self.choose_label.config(fg="#009900", font=("Arial", "12", "bold"))
+        self.choose_label.config(fg="#009900", font=("Arial", 12, "bold"))
         self.num_rounds_entry.config(bg="#FFFFFF")
 
         error = "Oops - Please choose a whole number more than zero."
@@ -164,14 +164,14 @@ class StartGame:
 
         # display the error if necessary
         if has_errors == "yes":
-            self.choose_label.config(text=error, fg="#990000", font=("Arial", "10", "bold"))
+            self.choose_label.config(text=error, fg="#990000", font=("Arial", 10, "bold"))
             self.num_rounds_entry.config(bg="#F4CCCC")
             self.num_rounds_entry.delete(0, END)
 
 
 class Play:
     """
-    Interface for playing the Colour Quest Game
+    Interface for playing the Color Quest Game
     """
 
     def __init__(self, how_many):
@@ -208,7 +208,7 @@ class Play:
 
         # List for label details (text | font | background | row)
         play_labels_list = [
-            ["Round # of #", ("Arial", "16", "bold"), None, 0],
+            ["Round # of #", ("Arial", 16, "bold"), None, 0],
             ["Score to beat: #", body_font, "#FFF2CC", 1],
             ["Choose a colour below.  Good luck. 🍀", body_font, "#D5E8D4", 2],
             ["You chose, result", body_font, "#D5E8D4", 4]
@@ -228,7 +228,7 @@ class Play:
         self.colour_instruction_label = play_labels_ref[2]
         self.results_label = play_labels_ref[3]
 
-        # set up colour buttons...
+        # set up color buttons...
         self.colour_frame = Frame(self.game_frame)
         self.colour_frame.grid(row=3)
 
@@ -237,7 +237,7 @@ class Play:
 
         # create four buttons in a 2 x 2 grid
         for item in range(0, 4):
-            self.colour_button = Button(self.colour_frame, font=("Arial", "12"),
+            self.colour_button = Button(self.colour_frame, font=("Arial", 12),
                                         text="Colour Name", width=15,
                                         command=partial(self.round_results, item))
             self.colour_button.grid(row=item // 2,
@@ -262,7 +262,7 @@ class Play:
         control_ref_list = []
         for item in control_button_list:
             make_control_button = Button(item[0], text=item[1], bg=item[2],
-                                         command=item[3], font=("Arial", "16", "bold"),
+                                         command=item[3], font=("Arial", 16, "bold"),
                                          fg="#FFFFFF", width=item[4])
             make_control_button.grid(row=item[5], column=item[6], padx=5, pady=5)
 
@@ -291,8 +291,8 @@ class Play:
 
     def new_round(self):
         """
-        Chooses four colours, works out median for score to beat.  Configures
-        buttons with chosen colours
+        Chooses four colors, works out median for score to beat.  Configures
+        buttons with chosen colors
         """
 
         # retrieve number of rounds played,
@@ -300,7 +300,7 @@ class Play:
         rounds_played = self.rounds_played.get()
         rounds_wanted = self.rounds_wanted.get()
 
-        # get round colours and median score...
+        # get round colors and median score...
         self.round_colour_list, median, highest = get_round_colours()
 
         # Set target score as median (for later comparison)
@@ -313,11 +313,11 @@ class Play:
         # Update heading, and score to beat labels.  "Hide" results label
         self.heading_label.config(text=f"Round {rounds_played + 1} of {rounds_wanted}")
         self.target_label.config(text=f"Target Score: {median}",
-                                 font=("Arial", "14", "bold"))
+                                 font=("Arial", 14, "bold"))
         self.results_label.config(text=f"{'=' * 7}", bg="#F0F0F0")
 
-        # configure buttons using foreground and background colours from list
-        # enable colour buttons (disabled at the end of the last round)
+        # configure buttons using foreground and background colors from list
+        # enable color buttons (disabled at the end of the last round)
         for count, item in enumerate(self.colour_button_ref):
             item.config(fg=self.round_colour_list[count][2],
                         bg=self.round_colour_list[count][0],
@@ -337,7 +337,7 @@ class Play:
         rounds_played += 1
         self.rounds_played.set(rounds_played)
 
-        # Get user score and colour based on button press...
+        # Get user score and color based on button press...
         score = int(self.round_colour_list[user_choice][1])
 
         # Get rounds won for working out success rate
@@ -451,7 +451,7 @@ class DisplayHints:
         self.help_heading_label = Label(self.help_frame,
                                         bg=background,
                                         text="Hints",
-                                        font=("Arial", "14", "bold"))
+                                        font=("Arial", 14, "bold"))
         self.help_heading_label.grid(row=0)
 
         help_text = ("The score for each colour relates to it's hexadecimal code.  "
@@ -471,7 +471,7 @@ class DisplayHints:
         self.help_text_label.grid(row=1, padx=10)
 
         self.dismiss_button = Button(self.help_frame,
-                                     font=("Arial", "12", "bold"),
+                                     font=("Arial", 12, "bold"),
                                      text="Dismiss", bg="#CC6600",
                                      fg="#FFFFFF",
                                      command=partial(self.close_hints,
@@ -564,9 +564,9 @@ class Stats:
 
         average_score_string = f"Average Score: {average_score:.0f}\n"
 
-        heading_font = ("Arial", "16", "bold")
-        normal_font = ("Arial", "14")
-        comment_font = ("Arial", "13")
+        heading_font = ("Arial", 16, "bold")
+        normal_font = ("Arial", 14)
+        comment_font = ("Arial", 13)
 
         # Label list (text | font | 'Sticky')
         all_stats_strings = [
@@ -593,7 +593,7 @@ class Stats:
         stats_comment_label.config(bg=comment_colour)
 
         self.dismiss_button = Button(self.stats_frame,
-                                     font=("Arial", "16", "bold"),
+                                     font=("Arial", 16, "bold"),
                                      text="Dismiss", bg="#333333",
                                      fg="#FFFFFF", width=20,
                                      command=partial(self.close_stats,

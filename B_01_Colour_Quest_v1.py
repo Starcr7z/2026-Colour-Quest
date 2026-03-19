@@ -117,12 +117,12 @@ class StartGame:
         self.entry_area_frame = Frame(self.start_frame)
         self.entry_area_frame.grid(row=3)
 
-        self.num_rounds_entry = Entry(self.entry_area_frame, font=("Arial", "20", "bold"),
+        self.num_rounds_entry = Entry(self.entry_area_frame, font=("Arial", 20, "bold"),
                                       width=10)
         self.num_rounds_entry.grid(row=0, column=0, padx=10, pady=10)
 
         # Create play button...
-        self.play_button = Button(self.entry_area_frame, font=("Arial", "16", "bold"),
+        self.play_button = Button(self.entry_area_frame, font=("Arial", 16, "bold"),
                                   fg="#FFFFFF", bg="#0057D8", text="Play", width=10,
                                   command=self.check_rounds)
         self.play_button.grid(row=0, column=1)
@@ -230,7 +230,7 @@ class Play:
 
         # create four buttons in a 2 x 2 grid
         for item in range(0, 4):
-            self.colour_button = Button(self.colour_frame, font=("Arial", "12"),
+            self.colour_button = Button(self.colour_frame, font=("Arial", 12),
                                         text="Colour Name", width=15,
                                         command=partial(self.round_results, item))
             self.colour_button.grid(row=item // 2,
@@ -255,7 +255,7 @@ class Play:
         control_ref_list = []
         for item in control_button_list:
             make_control_button = Button(item[0], text=item[1], bg=item[2],
-                                         command=item[3], font=("Arial", "16", "bold"),
+                                         command=item[3], font=("Arial", 16, "bold"),
                                          fg="#FFFFFF", width=item[4])
             make_control_button.grid(row=item[5], column=item[6], padx=5, pady=5)
 
@@ -277,6 +277,7 @@ class Play:
 
         # Once interface has been created, invoke new
         # round function for first round.
+
         self.new_round()
 
     def new_round(self):
@@ -404,7 +405,7 @@ class DisplayHints:
         self.help_heading_label = Label(self.help_frame,
                                         bg=background,
                                         text="Hints",
-                                        font=("Arial", "14", "bold"))
+                                        font=("Arial", 14, "bold"))
         self.help_heading_label.grid(row=0)
 
         help_text = ("The score for each colour relates to it's hexadecimal code.  "
@@ -424,7 +425,7 @@ class DisplayHints:
         self.help_text_label.grid(row=1, padx=10)
 
         self.dismiss_button = Button(self.help_frame,
-                                     font=("Arial", "12", "bold"),
+                                     font=("Arial", 12, "bold"),
                                      text="Dismiss", bg="#CC6600",
                                      fg="#FFFFFF",
                                      command=partial(self.close_hints,
